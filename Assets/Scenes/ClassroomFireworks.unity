@@ -7167,7 +7167,7 @@ Transform:
   m_GameObject: {fileID: 434149667}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 2.9, z: 0.5}
+  m_LocalPosition: {x: -2, y: 1.7, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7189,7 +7189,7 @@ MonoBehaviour:
   maxIntensity: 200
   attack: 0.04
   decay: 1.1
-  flickerAmount: 0.3
+  flickerAmount: 0.1
   flickerDuration: 0.5
   flickerSpeed: 22
   colorSaturation: 0.8
@@ -7200,6 +7200,7 @@ MonoBehaviour:
   roomCenterPosition: {x: 0, y: 1.2, z: 0}
   placeDistance: 9
   followSmoothing: 10
+  followAmount: 1
 --- !u!114 &434149670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21692,13 +21693,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600198968}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.036560755, y: 0.8919251, z: -0.073329546, w: 0.44469738}
+  m_LocalPosition: {x: -7.1, y: 2.7, z: 5.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 677507322}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 9.4, y: 127, z: 0}
 --- !u!114 &1600198970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21715,7 +21716,7 @@ MonoBehaviour:
   maxIntensity: 200
   attack: 0.04
   decay: 0.9
-  flickerAmount: 0.3
+  flickerAmount: 0.1
   flickerDuration: 0.5
   flickerSpeed: 22
   colorSaturation: 1
@@ -21725,7 +21726,8 @@ MonoBehaviour:
   roomCenter: {fileID: 0}
   roomCenterPosition: {x: 0, y: 1.2, z: 0}
   placeDistance: 9
-  followSmoothing: 10
+  followSmoothing: 1.5
+  followAmount: 0.3
 --- !u!114 &1600198971
 MonoBehaviour:
   m_ObjectHideFlags: 0

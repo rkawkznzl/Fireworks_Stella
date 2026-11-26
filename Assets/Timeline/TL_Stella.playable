@@ -17756,7 +17756,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   skyDawn: 1
   lightColor: {r: 1, g: 0.76, b: 0.84, a: 1}
-  lightIntensity: 1.1
+  lightIntensity: 1.8
   lightEuler: {x: 8, y: 72, z: 0}
   ambient: {r: 0.36, g: 0.28, b: 0.44, a: 1}
 --- !u!114 &3271727401317956020

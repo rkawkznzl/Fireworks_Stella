@@ -53,8 +53,12 @@ public class FireworkRoomLight : MonoBehaviour
     [Tooltip("교실 중심에서 폭발 방향으로 이만큼 떨어진 곳에 빛을 둔다 (창밖이 되도록)")]
     [SerializeField] float placeDistance = 9f;
 
-    [Tooltip("방향이 바뀔 때 따라가는 빠르기")]
+    [Tooltip("방향이 바뀔 때 따라가는 빠르기 (작을수록 그림자가 천천히 미끄러진다)")]
     [SerializeField] float followSmoothing = 10f;
+
+    [Tooltip("폭발 방향을 얼마나 따라갈지. 0 = 처음 놓인 자리에 고정, 1 = 폭발 방향으로 완전히 이동.\n" +
+             "0.3 정도면 그림자가 불꽃 쪽으로 살짝만 기울어 산만하지 않다")]
+    [SerializeField, Range(0f, 1f)] float followAmount = 1f;
 
     struct Pulse
     {
@@ -69,6 +73,7 @@ public class FireworkRoomLight : MonoBehaviour
     Light _light;
     Vector3 _targetPos;
     bool _hasTarget;
+    Vector3 _anchorDir; // 처음 놓인 자리의 방향 (교실 중심 기준). followAmount가 작을수록 이 방향 근처에 머문다
 
     const int MaxPulses = 24;
 
@@ -79,6 +84,9 @@ public class FireworkRoomLight : MonoBehaviour
         _light = GetComponent<Light>();
         _light.intensity = 0f;
         _light.enabled = false;
+
+        Vector3 fromCenter = transform.position - Center;
+        _anchorDir = fromCenter.sqrMagnitude > 0.01f ? fromCenter.normalized : Vector3.left;
     }
 
     void OnEnable()  { FireworkEvents.Exploded += HandleExplosion; }
@@ -106,12 +114,18 @@ public class FireworkRoomLight : MonoBehaviour
 
         if (followExplosion)
         {
-            Vector3 dir = (e.position - Center).normalized;
+            // 처음 놓인 방향과 폭발 방향 사이에서 followAmount만큼만 기울인다
+            Vector3 explosionDir = (e.position - Center).normalized;
+            Vector3 dir = Vector3.Slerp(_anchorDir, explosionDir, followAmount);
             _targetPos = Center + dir * placeDistance;
             if (!_hasTarget)
             {
-                transform.position = _targetPos; // 첫 폭발은 바로 그 자리로
-                transform.rotation = Quaternion.LookRotation(Center - _targetPos);
+                // followAmount가 1이면 첫 폭발 자리로 바로 이동, 그보다 작으면 처음 자리에서 부드럽게 출발
+                if (followAmount >= 0.999f)
+                {
+                    transform.position = _targetPos;
+                    transform.rotation = Quaternion.LookRotation(Center - _targetPos);
+                }
                 _hasTarget = true;
             }
         }
